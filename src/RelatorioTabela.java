@@ -35,6 +35,7 @@ public class RelatorioTabela {
         System.out.println("Tabela Hash Mod:");
         System.out.println("Número de colisões: " + tabelaHashMod.getColisoes());
         System.out.println("Tempo de inserção: " + (endTime - startTime) + " ms");
+        System.out.println("-------------------------------------");
 
         startTime = System.currentTimeMillis();
         for (String nome : nomes) {
@@ -44,6 +45,7 @@ public class RelatorioTabela {
         System.out.println("Tabela Hash Multiplicação:");
         System.out.println("Número de colisões: " + tabelaHashMult.getColisoes());
         System.out.println("Tempo de inserção: " + (endTime - startTime) + " ms");
+        System.out.println("-------------------------------------");
 
         int[] distribMod = tabelaHashMod.getDistribChaves();
         int[] distribMult = tabelaHashMult.getDistribChaves();
@@ -52,9 +54,34 @@ public class RelatorioTabela {
         System.out.println("Distribuição das chaves - Tabela Multiplicação:");
         printDistribution(distribMult);
 
+        System.out.println("-----------------------------------------------------");
+
+
+        // Para verificar quantas colisões tem em cada indice (são muitas colisões)
+        //tabelaHashMod.printColisoesPorIndice();
+        //tabelaHashMult.printColisoesPorIndice();
+
         System.out.println("-------------------------------");
         tabelaHashMod.printDistribStats();
         tabelaHashMult.printDistribStats();
+
+        String nomeBusca = "Emily";
+        System.out.println("\nTempo de busca para o nome: " + nomeBusca);
+
+
+        startTime = System.nanoTime();
+        boolean encontradoMod = tabelaHashMod.buscar(nomeBusca);
+        endTime = System.nanoTime();
+        System.out.println("Tabela Hash Mod:");
+        System.out.println("Encontrado: " + encontradoMod);
+        System.out.println("Tempo de busca: " + (endTime - startTime) + " ns");
+
+        startTime = System.nanoTime();
+        boolean encontradoMult = tabelaHashMult.buscar(nomeBusca);
+        endTime = System.nanoTime();
+        System.out.println("Tabela Hash Multiplicação:");
+        System.out.println("Encontrado: " + encontradoMult);
+        System.out.println("Tempo de busca: " + (endTime - startTime) + " ns");
     }
 
     private void printDistribution(int[] distrib) {
@@ -64,4 +91,5 @@ public class RelatorioTabela {
             }
         }
     }
+
 }
